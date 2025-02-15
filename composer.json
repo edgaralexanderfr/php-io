@@ -13,6 +13,10 @@
     "require": {},
     "autoload": {
         "files": [
+            "src/format.php",
+            "src/ln.php",
+            "src/nln.php",
+            "src/concat.php",
             "src/println.php",
             "src/main.php"
         ],
