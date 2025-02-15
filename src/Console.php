@@ -6,6 +6,13 @@ namespace PHPIO;
 
 class Console
 {
+    public static function echo(mixed ...$output): void
+    {
+        $output = implode(' ', array_map(fn($output) => print_r($output, true), $output));
+
+        echo $output . PHP_EOL;
+    }
+
     public static function log(mixed ...$output): void
     {
         $output = implode(' ', array_map(fn($output) => print_r($output, true), $output));

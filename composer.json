@@ -12,6 +12,10 @@
     ],
     "require": {},
     "autoload": {
+        "files": [
+            "src/println.php",
+            "src/main.php"
+        ],
         "psr-4": {
             "PHPIO\\": "src/"
         }
