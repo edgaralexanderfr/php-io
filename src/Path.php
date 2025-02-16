@@ -8,9 +8,10 @@ namespace PHPIO;
  * @property array|false $ls
  * @property array|false $files
  */
-class Path implements \Iterator, \Stringable
+class Path implements \Iterator, \JsonSerializable, \Stringable
 {
-    public string|false $full_path;
+    public readonly string|false $full_path;
+    public readonly string $file_name;
 
     private array|false|null $cached_files = null;
     private array|null $walker = null;
@@ -20,6 +21,7 @@ class Path implements \Iterator, \Stringable
         public bool $exclude_parent_dirs = true,
     ) {
         $this->full_path = realpath($path);
+        $this->file_name = basename($path);
     }
 
     /**
@@ -32,9 +34,18 @@ class Path implements \Iterator, \Stringable
         return $dir;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return $this->file_name;
+    }
+
     public function __toString(): string
     {
-        return format(output: $this->full_path);
+        if ($this->full_path === false) {
+            return 'false';
+        }
+
+        return $this->full_path;
     }
 
     public function rewind(): void
