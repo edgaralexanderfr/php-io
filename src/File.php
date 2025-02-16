@@ -9,14 +9,20 @@ namespace PHPIO;
  */
 class File implements \Stringable
 {
+    public readonly string $path;
     public string|false $full_path;
-    
+
     private string|false|null $cached_content = null;
 
-    public function __construct(
-        public readonly string $path,
-    ) {
-        $this->full_path = realpath($path);
+    public function __construct(Path|string $path)
+    {
+        if ($path instanceof Path) {
+            $this->path = $path->path;
+            $this->full_path = $path->full_path;
+        } else {
+            $this->path = $path;
+            $this->full_path = realpath($path);
+        }
     }
 
     public function getContent(bool $use_include_path = false, $context = null, int $offset = 0, ?int $length = null): string|false
