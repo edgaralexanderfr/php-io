@@ -33,6 +33,8 @@ function format(string $separator = '', mixed ...$output): string
             if ($new_output !== false) {
                 return $new_output;
             }
+
+            return gettype($output);
         }
 
         return $output;

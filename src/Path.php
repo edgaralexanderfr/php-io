@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PHPIO;
 
 /**
+ * @property array|false $ls
  * @property array|false $files
  */
 class Path implements \Iterator, \Stringable
@@ -17,7 +18,6 @@ class Path implements \Iterator, \Stringable
     public function __construct(
         public readonly string $path,
         public bool $exclude_parent_dirs = true,
-        public bool $full_paths = false,
     ) {
         $this->full_path = realpath($path);
     }
@@ -25,7 +25,7 @@ class Path implements \Iterator, \Stringable
     /**
      * @param ?resource $context
      */
-    public function ls(int $sorting_order = SCANDIR_SORT_ASCENDING, $context = null): array|false
+    public function getFiles(int $sorting_order = SCANDIR_SORT_ASCENDING, $context = null): array|false
     {
         $dir = scandir($this->path);
 
@@ -69,12 +69,19 @@ class Path implements \Iterator, \Stringable
     }
 
     /** @disregard */
+    public array|false $ls
+    {
+        /** @disregard */
+        get => $this->files;
+    }
+
+    /** @disregard */
     public array|false $files
     {
         /** @disregard */
         get {
             if ($this->cached_files === null) {
-                $this->cached_files = $this->ls();
+                $this->cached_files = $this->getFiles();
             }
 
             if ($this->cached_files === false) {
@@ -88,10 +95,12 @@ class Path implements \Iterator, \Stringable
                     continue;
                 }
 
-                if ($this->full_paths) {
-                    $files[] = realpath("{$this->path}/{$file}");
+                $path = "{$this->path}/{$file}";
+
+                if (is_dir($path)) {
+                    $files[] = new self($path);
                 } else {
-                    $files[] = $file;
+                    $files[] = new File($path);
                 }
             }
 
