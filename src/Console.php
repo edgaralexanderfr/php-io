@@ -27,11 +27,23 @@ class Console
         echo $output;
     }
 
+    public static function writeln(mixed ...$output): void
+    {
+        $output = concat(...$output);
+
+        echo $output . PHP_EOL;
+    }
+
     public static function writeLine(mixed ...$output): void
     {
         $output = concat(...$output);
 
         echo $output . PHP_EOL;
+    }
+
+    public static function readln(?string $prompt = null): string|false
+    {
+        return readline($prompt);
     }
 
     public static function readLine(?string $prompt = null): string|false
