@@ -27,7 +27,17 @@ function format(string $separator = '', mixed ...$output): string
             return (string) $output;
         }
 
-        if (is_array($output) || is_object($output)) {
+        if (is_iterable($output)) {
+            $new_output = json_encode((array) $output);
+
+            if ($new_output !== false) {
+                return $new_output;
+            }
+
+            return gettype($output);
+        }
+
+        if (is_object($output)) {
             $new_output = json_encode($output);
 
             if ($new_output !== false) {
