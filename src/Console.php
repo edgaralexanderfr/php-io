@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace PHPIO;
 
-class Console
+final class Console
 {
+    private static bool $colorize = true;
+
+    public static function colorize(bool $colorize = true): void
+    {
+        self::$colorize = $colorize;
+    }
+
     public static function echo(mixed ...$output): void
     {
         $output = concat(...$output);
@@ -37,6 +44,32 @@ class Console
     public static function writeLine(mixed ...$output): void
     {
         $output = concat(...$output);
+
+        echo $output . PHP_EOL;
+    }
+
+    public static function warn(mixed ...$output): void
+    {
+        $output_string = concat(...$output);
+
+        if (!self::$colorize || System::isWindows()) {
+            $output = $output_string;
+        } else {
+            $output = "🟡 \033[33m{$output_string}\033[0m";
+        }
+
+        echo $output . PHP_EOL;
+    }
+
+    public static function error(mixed ...$output): void
+    {
+        $output_string = concat(...$output);
+
+        if (!self::$colorize || System::isWindows()) {
+            $output = $output_string;
+        } else {
+            $output = "⛔ \033[31m{$output_string}\033[0m";
+        }
 
         echo $output . PHP_EOL;
     }
