@@ -20,13 +20,6 @@ final class Console
         echo $output . PHP_EOL;
     }
 
-    public static function log(mixed ...$output): void
-    {
-        $output = concat(...$output);
-
-        echo $output . PHP_EOL;
-    }
-
     public static function write(mixed ...$output): void
     {
         $output = concat(...$output);
@@ -44,6 +37,19 @@ final class Console
     public static function writeLine(mixed ...$output): void
     {
         $output = concat(...$output);
+
+        echo $output . PHP_EOL;
+    }
+
+    public static function log(mixed ...$output): void
+    {
+        $output_string = concat(...$output);
+
+        if (!self::$colorize || System::isWindows()) {
+            $output = $output_string;
+        } else {
+            $output = "ℹ️ \033[36m{$output_string}\033[0m";
+        }
 
         echo $output . PHP_EOL;
     }
