@@ -52,7 +52,12 @@ if (is_object($ini)) {
     }
 }
 
+$ignore_main = PHPPP_CONFIG->io?->config?->ignore_main ?? false;
 $colorize = PHPPP_CONFIG?->io?->config?->console?->colorize ?? null;
+
+if (!defined('PHPIO_IGNORE_MAIN')) {
+    define('PHPIO_IGNORE_MAIN', $ignore_main ? true : false);
+}
 
 if (is_bool($colorize)) {
     \PHPIO\Console::colorize($colorize);
