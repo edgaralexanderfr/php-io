@@ -13,12 +13,12 @@
     "require": {},
     "autoload": {
         "files": [
-            "src/config.php",
             "src/format.php",
             "src/ln.php",
             "src/nln.php",
             "src/concat.php",
             "src/println.php",
+            "src/phppp.php",
             "src/main.php"
         ],
         "psr-4": {

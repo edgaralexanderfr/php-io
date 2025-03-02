@@ -20,10 +20,10 @@ function php_io_autoload(string $class): void
 
 spl_autoload_register('php_io_autoload');
 
-include __DIR__ . '/src/config.php';
 include __DIR__ . '/src/format.php';
 include __DIR__ . '/src/ln.php';
 include __DIR__ . '/src/nln.php';
 include __DIR__ . '/src/concat.php';
 include __DIR__ . '/src/println.php';
+include __DIR__ . '/src/phppp.php';
 include __DIR__ . '/src/main.php';
