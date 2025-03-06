@@ -20,6 +20,7 @@ function php_io_autoload(string $class): void
 
 spl_autoload_register('php_io_autoload');
 
+include __DIR__ . '/src/import.php';
 include __DIR__ . '/src/format.php';
 include __DIR__ . '/src/ln.php';
 include __DIR__ . '/src/nln.php';

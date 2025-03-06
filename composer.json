@@ -13,6 +13,7 @@
     "require": {},
     "autoload": {
         "files": [
+            "src/import.php",
             "src/format.php",
             "src/ln.php",
             "src/nln.php",
