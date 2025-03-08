@@ -29,7 +29,7 @@ class Path implements \Iterator, \JsonSerializable, \Stringable
      */
     public function getFiles(int $sorting_order = SCANDIR_SORT_ASCENDING, $context = null): array|false
     {
-        $dir = scandir($this->path);
+        $dir = scandir($this->path, $sorting_order, $context);
 
         return $dir;
     }
@@ -80,15 +80,13 @@ class Path implements \Iterator, \JsonSerializable, \Stringable
     }
 
     /** @disregard */
-    public array|false $ls
-    {
+    public array|false $ls {
         /** @disregard */
         get => $this->files;
     }
 
     /** @disregard */
-    public array|false $files
-    {
+    public array|false $files {
         /** @disregard */
         get {
             if ($this->cached_files === null) {

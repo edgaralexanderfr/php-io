@@ -10,7 +10,7 @@ if (!defined('PHPPP_CONFIG')) {
 
     /** @todo We gotta handle Windows case in here... */
     do {
-        $config_file_path = "{$directory}/phppp.json";
+        $config_file_path = $directory . DIRECTORY_SEPARATOR . 'phppp.json';
 
         if (file_exists($config_file_path)) {
             $config_file_found = true;
@@ -18,8 +18,8 @@ if (!defined('PHPPP_CONFIG')) {
             break;
         }
 
-        $directory = realpath("{$directory}/../");
-    } while ($directory != '/');
+        $directory = realpath($directory . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+    } while ($directory != DIRECTORY_SEPARATOR);
 
     if (!$config_file_found || !is_object($config = json_decode((string) file_get_contents($config_file_path)))) {
         $config = (object)[];
@@ -35,7 +35,7 @@ if (!defined('PHPPP_CONFIG')) {
 // Define `PHPIO` configs:
 
 if (!defined('APP')) {
-    $app_path = PHPPP_CONFIG->io?->config?->app_path ?? '';
+    $app_path = PHPPP_CONFIG->io?->app_path ?? '';
 
     if (is_string($app_path)) {
         $app_path = DIRECTORY_SEPARATOR . $app_path . DIRECTORY_SEPARATOR;

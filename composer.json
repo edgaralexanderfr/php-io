@@ -20,6 +20,7 @@
             "src/concat.php",
             "src/println.php",
             "src/phppp.php",
+            "src/include.php",
             "src/main.php"
         ],
         "psr-4": {

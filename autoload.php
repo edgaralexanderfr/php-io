@@ -27,4 +27,5 @@ include __DIR__ . '/src/nln.php';
 include __DIR__ . '/src/concat.php';
 include __DIR__ . '/src/println.php';
 include __DIR__ . '/src/phppp.php';
+include __DIR__ . '/src/include.php';
 include __DIR__ . '/src/main.php';
