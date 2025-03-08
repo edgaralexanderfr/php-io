@@ -35,12 +35,22 @@ if (!defined('PHPPP_CONFIG')) {
 // Define `PHPIO` configs:
 
 if (!defined('APP')) {
-    if (defined('PHPPP_CONFIG_PATH')) {
-        define('APP', PHPPP_CONFIG_PATH);
-    } else if (isset($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['DOCUMENT_ROOT'])) {
-        define('APP', $_SERVER['DOCUMENT_ROOT']);
+    $app_path = PHPPP_CONFIG->io?->config?->app_path ?? '';
+
+    if (is_string($app_path)) {
+        $app_path = DIRECTORY_SEPARATOR . $app_path . DIRECTORY_SEPARATOR;
     } else {
-        define('APP', getcwd());
+        $app_path = '';
+    }
+
+    if (defined('PHPPP_CONFIG_PATH')) {
+        define('APP', ($path = realpath(PHPPP_CONFIG_PATH . $app_path)) ? $path : PHPPP_CONFIG_PATH);
+    } else if (isset($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['DOCUMENT_ROOT'])) {
+        define('APP', ($path = realpath($_SERVER['DOCUMENT_ROOT'] . $app_path)) ? $path : $_SERVER['DOCUMENT_ROOT']);
+    } else {
+        $cwd = getcwd();
+
+        define('APP', ($path = realpath($cwd . $app_path)) ? $path : $cwd);
     }
 }
 
@@ -76,9 +86,15 @@ if (is_bool($colorize)) {
 // `unset` `global` `PHPIO` variables:
 
 unset($colorize);
+unset($add_php_extension);
+unset($add_leading_slash);
+unset($ignore_main);
 unset($value);
 unset($option);
 unset($ini);
+unset($cwd);
+unset($path);
+unset($app_path);
 
 // `unset` `global` variables from repositories:
 
