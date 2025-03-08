@@ -53,10 +53,20 @@ if (is_object($ini)) {
 }
 
 $ignore_main = PHPPP_CONFIG->io?->config?->ignore_main ?? false;
+$add_leading_slash = PHPPP_CONFIG->io?->config?->import?->add_leading_slash ?? true;
+$add_php_extension = PHPPP_CONFIG->io?->config?->import?->add_php_extension ?? true;
 $colorize = PHPPP_CONFIG?->io?->config?->console?->colorize ?? null;
 
 if (!defined('PHPIO_IGNORE_MAIN')) {
     define('PHPIO_IGNORE_MAIN', $ignore_main ? true : false);
+}
+
+if (!defined('PHPIO_ADD_LEADING_SLASH')) {
+    define('PHPIO_ADD_LEADING_SLASH', $add_leading_slash ? true : false);
+}
+
+if (!defined('PHPIO_ADD_PHP_EXTENSION')) {
+    define('PHPIO_ADD_PHP_EXTENSION', $add_php_extension ? true : false);
 }
 
 if (is_bool($colorize)) {
