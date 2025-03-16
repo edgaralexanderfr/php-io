@@ -8,5 +8,5 @@ function println(mixed ...$output): void
 {
     $output = concat(...$output);
 
-    echo $output . PHP_EOL;
+    std::pout($output . PHP_EOL);
 }

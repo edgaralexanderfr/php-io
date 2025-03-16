@@ -17,28 +17,28 @@ final class Console
     {
         $output = concat(...$output);
 
-        echo $output . PHP_EOL;
+        std::pout($output . PHP_EOL);
     }
 
     public static function write(mixed ...$output): void
     {
         $output = concat(...$output);
 
-        echo $output;
+        std::pout($output);
     }
 
     public static function writeln(mixed ...$output): void
     {
         $output = concat(...$output);
 
-        echo $output . PHP_EOL;
+        std::pout($output . PHP_EOL);
     }
 
     public static function writeLine(mixed ...$output): void
     {
         $output = concat(...$output);
 
-        echo $output . PHP_EOL;
+        std::pout($output . PHP_EOL);
     }
 
     public static function log(mixed ...$output): void
@@ -46,12 +46,10 @@ final class Console
         $output_string = concat(...$output);
 
         if (!self::$colorize || System::isWindows()) {
-            $output = $output_string;
+            std::pout($output_string . PHP_EOL);
         } else {
-            $output = "ℹ️ \033[36m{$output_string}\033[0m";
+            std::pout($output_string . PHP_EOL, 'ℹ️', '36');
         }
-
-        echo $output . PHP_EOL;
     }
 
     public static function warn(mixed ...$output): void
@@ -59,12 +57,10 @@ final class Console
         $output_string = concat(...$output);
 
         if (!self::$colorize || System::isWindows()) {
-            $output = $output_string;
+            std::pout($output_string . PHP_EOL);
         } else {
-            $output = "🟡 \033[33m{$output_string}\033[0m";
+            std::pout($output_string . PHP_EOL, '🟡', '33');
         }
-
-        echo $output . PHP_EOL;
     }
 
     public static function error(mixed ...$output): void
@@ -72,21 +68,19 @@ final class Console
         $output_string = concat(...$output);
 
         if (!self::$colorize || System::isWindows()) {
-            $output = $output_string;
+            std::pout($output_string . PHP_EOL);
         } else {
-            $output = "⛔ \033[31m{$output_string}\033[0m";
+            std::pout($output_string . PHP_EOL, '⛔', '31');
         }
-
-        echo $output . PHP_EOL;
     }
 
     public static function readln(?string $prompt = null): string|false
     {
-        return readline($prompt);
+        return std::pin($prompt);
     }
 
     public static function readLine(?string $prompt = null): string|false
     {
-        return readline($prompt);
+        return std::pin($prompt);
     }
 }

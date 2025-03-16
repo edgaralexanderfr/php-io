@@ -20,6 +20,12 @@ final class System
 
     public static function pause(string $message = "Press any key to continue...\n"): void
     {
+        if (!std::isCLI()) {
+            std::pout(($message ? $message : 'Skipping `\PHPIO\System::pause()`...') . PHP_EOL, '↩️', '32');
+
+            return;
+        }
+
         if (self::$is_windows) {
             system('pause');
         } else {

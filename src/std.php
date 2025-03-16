@@ -13,6 +13,11 @@ final class std
         self::$is_cli = !http_response_code();
     }
 
+    public static function isCLI(): bool
+    {
+        return self::$is_cli;
+    }
+
     public static function pout(string $output, string $emoji = '', string $color = ''): void
     {
         $pout = '';
@@ -34,6 +39,17 @@ final class std
 
             file_put_contents(APP . '/phppp-log.txt', $pout, FILE_APPEND);
         }
+    }
+
+    public static function pin(?string $prompt = null): string|false
+    {
+        if (self::$is_cli) {
+            return readline($prompt);
+        }
+
+        self::pout(($prompt ? $prompt : 'Skipping `readline()`...') . PHP_EOL, '↩️', '32');
+
+        return false;
     }
 }
 
