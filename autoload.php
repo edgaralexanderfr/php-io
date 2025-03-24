@@ -31,5 +31,6 @@ if (!defined('PHPIO')) {
     include __DIR__ . '/src/println.php';
     include __DIR__ . '/src/phppp.php';
     include __DIR__ . '/src/include.php';
+    include __DIR__ . '/src/error_handler.php';
     include __DIR__ . '/src/main.php';
 }

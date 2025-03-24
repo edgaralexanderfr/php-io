@@ -51,6 +51,15 @@ final class std
 
         return false;
     }
+
+    public static function halt(string|int $status = ''): never
+    {
+        if (self::$is_cli) {
+            exit($status);
+        }
+
+        die($status);
+    }
 }
 
 std::init();

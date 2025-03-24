@@ -21,6 +21,7 @@
             "src/println.php",
             "src/phppp.php",
             "src/include.php",
+            "src/error_handler.php",
             "src/main.php"
         ],
         "psr-4": {
