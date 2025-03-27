@@ -113,7 +113,7 @@ set_exception_handler(function (Throwable $ex) {
     \PHPIO\error_handler(
         file_path: $ex->getFile(),
         line: $ex->getLine(),
-        tag_type: 'Uncaught Exception',
+        tag_type: $ex::class,
         error_message: $ex->getMessage(),
         error_type: ErrorType::ERROR,
         halt: false,
