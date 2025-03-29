@@ -14,8 +14,8 @@ enum ErrorType
 }
 
 set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) {
-    if (!(error_reporting() & $errno)) {
-        return false;
+    if (!(error_reporting() & $errno) || !ini_get('display_errors')) {
+        return true;
     }
 
     $error = match ($errno) {
@@ -110,6 +110,10 @@ set_error_handler(function (int $errno, string $errstr, string $errfile, int $er
 });
 
 set_exception_handler(function (Throwable $ex) {
+    if (!(error_reporting() & E_ERROR) || !ini_get('display_errors')) {
+        return;
+    }
+
     \PHPIO\error_handler(
         file_path: $ex->getFile(),
         line: $ex->getLine(),
