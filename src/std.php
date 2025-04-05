@@ -11,6 +11,12 @@ final class std
     public static function init()
     {
         self::$is_cli = !http_response_code();
+
+        $append = PHPPP_CONFIG?->io?->config?->std?->pout?->append ?? false;
+
+        if (!self::$is_cli && (!is_bool($append) || !$append)) {
+            file_put_contents(APP . '/phppp-log.txt', '');
+        }
     }
 
     public static function isCLI(): bool
