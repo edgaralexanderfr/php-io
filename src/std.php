@@ -12,9 +12,9 @@ final class std
     {
         self::$is_cli = !http_response_code();
 
-        $append = PHPPP_CONFIG?->io?->config?->std?->pout?->append ?? false;
+        $append = PHPPP_CONFIG?->io?->config?->std?->pout?->append ?? true;
 
-        if (!self::$is_cli && (!is_bool($append) || !$append)) {
+        if (!self::$is_cli && is_bool($append) && !$append) {
             file_put_contents(APP . '/phppp-log.txt', '');
         }
     }
