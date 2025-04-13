@@ -36,7 +36,10 @@ class Path implements \Iterator, \JsonSerializable, \Stringable
         return $dir;
     }
 
-    public function copy(Path $dest_path): void
+    /**
+     * @param ?resource $context
+     */
+    public function copy(Path $dest_path, int $permissions = 0777, $context = null): void
     {
         if ($this->full_path === false || $dest_path->full_path === false) {
             return;
@@ -56,7 +59,9 @@ class Path implements \Iterator, \JsonSerializable, \Stringable
 
             @mkdir(
                 directory: $full_dest_path,
-                recursive: true
+                permissions: $permissions,
+                recursive: true,
+                context: $context
             );
 
             @copy($file->full_path, $full_dest_file);
